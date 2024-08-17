@@ -10,5 +10,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/mpv-script": "^0.32.8"
+  },
+  "dependencies": {
+    "webtorrent-mpv-hook": "^1.4.3"
   }
 }
