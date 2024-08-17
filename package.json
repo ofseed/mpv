@@ -1,0 +1,11 @@
+{
+  "name": "@ofseed/mpv",
+  "version": "1.0.0",
+  "description": "mpv configuration directory",
+  "main": "init.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yi Ming",
+  "license": "MIT"
+}
