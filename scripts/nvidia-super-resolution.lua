@@ -5,7 +5,8 @@ local options = {
 mp.options = require "mp.options"
 mp.options.read_options(options, "nvidia-super-resolution")
 
-local function set_vf()
+---@param msg? boolean Whether to show an OSD message
+local function set_vf(msg)
   if not options.enabled then
     return
   end
@@ -25,11 +26,16 @@ local function set_vf()
       "@nvidia-super-resolution:d3d11vpp=scale=%f:scaling-mode=nvidia",
       scale
     ),
-    _flags = { "no-osd" },
+    _flags = { msg and "osd-msg" or "no-osd" },
   }
 end
 
-mp.register_event("file-loaded", set_vf)
+---@param _ table Unused
+local function on_file_loaded(_)
+  set_vf()
+end
+
+mp.register_event("file-loaded", on_file_loaded)
 
 -- For debouncing
 local timer = nil
@@ -49,9 +55,9 @@ mp.add_key_binding("n", "toggle-nvidia-super-resolution", function()
       name = "vf",
       operation = "remove",
       value = "@nvidia-super-resolution",
-      _flags = { "no-osd" },
+      _flags = { "osd-msg" },
     }
   end
   options.enabled = not options.enabled
-  set_vf()
+  set_vf(true)
 end)
